@@ -3,8 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Book Tracker</title>
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
+
   <h1>Book Tracker</h1>
+
+  <div class="form">
+    <input type="text" id="title" placeholder="Title">
+    <input type="text" id="author" placeholder="Author">
+    <button id="addBtn">Add Book</button>
+  </div>
+
+  <div class="actions">
+    <button id="allBtn">All Books</button>
+    <button id="unreadBtn">Unread</button>
+  </div>
+
+  <ul id="bookList"></ul>
+
+  <script src="script/main.js"></script>
 </body>
 </html>
