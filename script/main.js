@@ -1,27 +1,13 @@
-let library = [];
+const list = document.getElementById("bookList");
 
-const titleInput = document.getElementById("title");
-const authorInput = document.getElementById("author");
-const addBtn = document.getElementById("addBtn");
+function renderBooks(books) {
+  list.innerHTML = "";
 
-addBtn.addEventListener("click", addBook);
+  books.forEach(book => {
+    const li = document.createElement("li");
 
-function addBook() {
-  const title = titleInput.value.trim();
-  const author = authorInput.value.trim();
+    li.textContent = `${book.title} by ${book.author} - ${book.isRead ? "Read" : "Not read"}`;
 
-  if (!title || !author) return;
-
-  const book = {
-    title,
-    author,
-    isRead: false
-  };
-
-  library.push(book);
-
-  titleInput.value = "";
-  authorInput.value = "";
-
-  console.log(library);
+    list.appendChild(li);
+  });
 }
