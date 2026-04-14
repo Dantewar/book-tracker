@@ -12,9 +12,13 @@ function addBookUI() {
   const title = titleInput.value.trim();
   const author = authorInput.value.trim();
 
-  if (!title || !author) return;
+  if (!title || !author) {
+    alert("Please fill all fields");
+    return;
+  }
 
   library.push({
+    id: Date.now(),
     title,
     author,
     isRead: false
@@ -47,8 +51,9 @@ function renderBooks(books) {
       </div>
 
       <div class="buttons">
-        <button onclick="markAsRead('${book.title}')">Read</button>
-        <button onclick="removeBook('${book.title}')">Remove</button>
+        <button onclick="markAsRead(${book.id})">Read</button>
+        <button onclick="editBook(${book.id})">Edit</button>
+        <button onclick="removeBook(${book.id})">Remove</button>
       </div>
     `;
 
@@ -56,8 +61,8 @@ function renderBooks(books) {
   });
 }
 
-function markAsRead(title) {
-  const book = library.find(b => b.title === title);
+function markAsRead(id) {
+  const book = library.find(b => b.id === id);
 
   if (book) {
     book.isRead = true;
@@ -66,8 +71,23 @@ function markAsRead(title) {
   }
 }
 
-function removeBook(title) {
-  library = library.filter(b => b.title !== title);
+function removeBook(id) {
+  library = library.filter(b => b.id !== id);
+  saveLibrary();
+  renderBooks(library);
+}
+
+function editBook(id) {
+  const book = library.find(b => b.id === id);
+
+  const newTitle = prompt("New title:", book.title);
+  const newAuthor = prompt("New author:", book.author);
+
+  if (!newTitle || !newAuthor) return;
+
+  book.title = newTitle.trim();
+  book.author = newAuthor.trim();
+
   saveLibrary();
   renderBooks(library);
 }
